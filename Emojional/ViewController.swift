@@ -10,18 +10,26 @@ import UIKit
 
 class ViewController: UIViewController {
      let emojis = ["😻": "happy kitty", "🙀": "sad kitty"]
+     let customMessages = [
+        "happy kitty": ["Give your pet a treat!", "Hug your pet. <3", "Go for a walk."],
+        "sad kitty": ["Teach your pet a new trick.", "Maybe it's time for a trip to the vet.", "Is something wrong?"]
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+    
     }
 
     @IBAction func showMessage(sender: UIButton) {
-         let selectedEmotion = sender.titleLabel?.text
+        let selectedEmotion = sender.titleLabel?.text
         
-        let alertController = UIAlertController(title: "title", message: emojis[selectedEmotion!], preferredStyle: UIAlertController.Style.alert)
+        let emotionAlerts = customMessages[emojis[selectedEmotion!]!]
+        let randomPhrase = Int.random(in: 0 ..< emotionAlerts!.count)
+        let emojiMessage = emotionAlerts?[randomPhrase]
         
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        let alertController = UIAlertController(title: "Animal Advice", message: emojiMessage, preferredStyle: UIAlertController.Style.alert)
+        
+        alertController.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.default, handler: nil))
         
         present(alertController, animated: true, completion: nil)}
 
